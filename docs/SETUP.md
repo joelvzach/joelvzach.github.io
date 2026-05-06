@@ -1,5 +1,21 @@
 # Website Setup Documentation
 
+## Site Overview
+
+This website now uses **Jekyll** (static site generator) to manage essays and pages.
+
+**Tech Stack:**
+- Jekyll 4.3 (GitHub Pages native support)
+- Markdown for essay content
+- Liquid templating
+- Vanilla JavaScript for search/filter
+
+**Key Directories:**
+- `_essays/` - Essay collection (auto-generated from Medium exports)
+- `_layouts/` - Page templates
+- `_includes/` - Reusable components (header, footer)
+- `assets/images/essays/` - Essay images
+
 ## Adding Social Links
 
 To add your social media profiles, update the following files:
@@ -35,27 +51,34 @@ Add links in the contact/connect sections:
 
 ## Adding New Essays
 
-1. Create a new HTML file: `essay-slug.html` (use the placeholder as template)
-2. Add the essay to `essays.html` list
-3. Update date and content
+### Option 1: Manual Creation
 
-### Essay Template Structure
+1. Create a new Markdown file: `_essays/YYYY-MM-DD-slug.md`
+2. Add front matter at the top:
 
-```html
-<article>
-  <header>
-    <h1>Your Essay Title</h1>
-    <p class="text-muted">Month Year · X min read</p>
-  </header>
-  
-  <section>
-    <h2>Section Heading</h2>
-    <p>Your content here...</p>
-  </section>
-  
-  <!-- More sections as needed -->
-</article>
+```yaml
+---
+layout: essay
+title: "Your Essay Title"
+subtitle: "Optional subtitle"
+date: 2026-01-01 00:00:00 +0000
+categories: [general]
+read_time: 5
+---
 ```
+
+3. Write content in Markdown below front matter
+4. Essay automatically appears on `essays.html` listing
+
+### Option 2: Convert from Medium Export
+
+Use the conversion script:
+
+```bash
+python3 convert_medium_to_jekyll.py --limit 10
+```
+
+See `../docs/ESSAY_MIGRATION.md` for full details.
 
 ---
 
@@ -83,31 +106,58 @@ Add links in the contact/connect sections:
 
 ```
 joelvzach.github.io/
-├── index.html          (Home page)
-├── about.html          (About page)
-├── portfolio.html      (Portfolio/Projects page)
-├── essays.html         (Essays list page)
-├── essay-placeholder.html (Sample essay)
-├── resume.html         (Full resume page)
-├── CNAME               (Domain configuration: joelvzach.com)
+├── _config.yml              (Jekyll configuration)
+├── Gemfile                  (Ruby dependencies)
+├── _layouts/
+│   ├── default.html         (Base template)
+│   └── essay.html           (Essay template)
+├── _includes/
+│   ├── header.html          (Navigation)
+│   └── footer.html          (Footer)
+├── _essays/                 (Essay collection - auto-generated)
+│   └── YYYY-MM-DD-slug.md   (Individual essays)
+├── index.html               (Home page)
+├── about.html               (About page)
+├── portfolio.html           (Portfolio/Projects page)
+├── essays.html              (Essays list with search/filter)
+├── resume.html              (Full resume page)
+├── CNAME                    (Domain: joelvzach.com)
+├── convert_medium_to_jekyll.py (Conversion script)
 ├── docs/
-│   └── SETUP.md        (This file)
+│   ├── SETUP.md             (This file)
+│   ├── PORKBUN_DNS.md       (DNS setup)
+│   └── ESSAY_MIGRATION.md   (Essay conversion guide)
 └── assets/
     ├── css/
-    │   └── style.css   (LaTeX-inspired stylesheet)
-    └── js/
-        └── main.js     (Navigation active state)
+    │   └── style.css        (LaTeX-inspired stylesheet)
+    ├── js/
+    │   └── main.js          (Navigation + search)
+    └── images/
+        └── essays/          (Essay images)
 ```
 
 ---
 
 ## Deployment Workflow
 
+### For Regular Updates (no Jekyll changes)
+
 1. Make changes locally
 2. Commit: `git add . && git commit -m "description"`
 3. Push: `git push origin main`
 4. GitHub Pages auto-deploys (~1-2 minutes)
 5. Visit `joelvzach.com` to verify
+
+### For Jekyll/Essay Updates
+
+1. Convert essays if needed: `python3 convert_medium_to_jekyll.py`
+2. Stage all changes: `git add .`
+3. Commit: `git commit -m "Add migrated essays"`
+4. Push: `git push origin main`
+5. GitHub Pages builds with Jekyll (~2-3 minutes)
+6. Visit `joelvzach.com/essays` to verify
+
+**Note:** First push with Jekyll may take longer as GitHub builds the site.
 
 ---
 

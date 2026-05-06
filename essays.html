@@ -1,50 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joel V Zachariah - Essays</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>JZ</text></svg>">
-</head>
-<body>
-  <nav>
-    <div class="container">
-      <div class="logo">
-        <a href="index.html">Joel V Zachariah</a>
+---
+layout: default
+title: Essays
+description: Collection of essays on systems, data, technology, and life
+---
+
+<h1>Essays</h1>
+<p class="text-muted" style="margin-bottom: 2rem;">A collection of thoughts on systems, data, technology, and life. Originally published on Medium (2018–2022).</p>
+
+<div class="essay-filters">
+  <input type="text" id="essay-search" class="search-input" placeholder="Search essays...">
+  <div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="opinion">Opinion</button>
+    <button class="filter-btn" data-filter="events">Events</button>
+    <button class="filter-btn" data-filter="student-life">Student Life</button>
+    <button class="filter-btn" data-filter="tw">TWTW</button>
+    <button class="filter-btn" data-filter="community">Community</button>
+  </div>
+</div>
+
+<div class="essay-list-container">
+  <ul class="essay-list" id="essay-list">
+    {% assign essays = site.essays | sort: 'date' | reverse %}
+    {% for essay in essays %}
+    <li class="essay-item" data-category="{{ essay.categories | join: ' ' }}" data-title="{{ essay.title | downcase }}">
+      <h3><a href="{{ essay.url | relative_url }}">{{ essay.title }}</a></h3>
+      <div class="essay-meta">
+        <time datetime="{{ essay.date | date: '%Y-%m-%d' }}">{{ essay.date | date: "%B %d, %Y" }}</time>
+        {% if essay.read_time %}
+          <span>· {{ essay.read_time }} min read</span>
+        {% endif %}
       </div>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="essays.html">Essays</a></li>
-        <li><a href="resume.html">Resume</a></li>
-      </ul>
-    </div>
-  </nav>
+      {% if essay.subtitle %}
+        <p class="essay-subtitle">{{ essay.subtitle }}</p>
+      {% endif %}
+      {% if essay.excerpt %}
+        <p class="excerpt">{{ essay.excerpt | strip_html | truncate: 200 }}</p>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
 
-  <main>
-    <h1>Essays</h1>
-    <p class="text-muted" style="margin-bottom: 2rem;">Thoughts on systems, data, and complex problems.</p>
+<div id="no-results" class="no-results" style="display: none;">
+  <p>No essays found matching your search.</p>
+</div>
 
-    <ul class="essay-list">
-      <li>
-        <h3><a href="essay-placeholder.html">Understanding Complex Systems: A Beginner's Guide</a></h3>
-        <div class="date">May 2026</div>
-        <p class="excerpt">An introduction to systems thinking and how complex behaviors emerge from simple interactions. This essay explores the fundamental concepts of network science and their applications in real-world problems.</p>
-        <p><a href="essay-placeholder.html">Read more →</a></p>
-      </li>
-    </ul>
+<div class="ai-note">
+  <strong>Note:</strong> These essays were originally published on Medium between 2018–2022 and have been migrated to this personal archive.
+</div>
 
-    <div class="ai-note">
-      <strong>Note:</strong> The essay above is AI-generated and serves as a placeholder. Future essays will be original content.
-    </div>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Joel V Zachariah</p>
-  </footer>
-
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+<script>
+// Essay search and filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('essay-search');
+  const essayList = document.getElementById('essay-list');
+  const essayItems = essayList.querySelectorAll('.essay-item');
+  const noResults = document.getElementById('no-results');
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  
+  let activeFilter = 'all';
+  
+  // Filter button clicks
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      activeFilter = this.dataset.filter;
+      filterEssays();
+    });
+  });
+  
+  // Search input
+  searchInput.addEventListener('input', function() {
+    filterEssays();
+  });
+  
+  function filterEssays() {
+    const searchTerm = searchInput.value.toLowerCase();
+    let visibleCount = 0;
+    
+    essayItems.forEach(item => {
+      const title = item.dataset.title;
+      const category = item.dataset.category;
+      const matchesSearch = title.includes(searchTerm);
+      const matchesFilter = activeFilter === 'all' || category.includes(activeFilter);
+      
+      if (matchesSearch && matchesFilter) {
+        item.style.display = 'block';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    
+    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+  }
+});
+</script>

@@ -1,0 +1,55 @@
+# Site settings
+title: Joel V Zachariah
+description: Personal website - Essays, Portfolio, and Resume
+url: "https://joelvzach.com"
+baseurl: ""
+author:
+  name: Joel V Zachariah
+  email: jzachariah@binghamton.edu
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /essays/:title/
+
+# Collections
+collections:
+  essays:
+    output: true
+    permalink: /essays/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "essays"
+    values:
+      layout: "essay"
+      tags: ["essay"]
+
+# Pagination (if needed in future)
+paginate: 10
+paginate_path: "/essays/page:num/"
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Sass configuration
+sass:
+  style: compressed
+
+# Plugins (GitHub Pages supported)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Feed settings
+feed:
+  path: feed.xml
+  collections:
+    - essays
