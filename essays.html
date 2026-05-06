@@ -1,100 +1,236 @@
----
-layout: default
-title: Essays
-description: Collection of essays on systems, data, technology, and life
----
-
-<h1>Essays</h1>
-<p class="text-muted" style="margin-bottom: 2rem;">A collection of thoughts on systems, data, technology, and life. Originally published on Medium (2018–2022).</p>
-
-<div class="essay-filters">
-  <input type="text" id="essay-search" class="search-input" placeholder="Search essays...">
-  <div class="filter-buttons">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="opinion">Opinion</button>
-    <button class="filter-btn" data-filter="events">Events</button>
-    <button class="filter-btn" data-filter="student-life">Student Life</button>
-    <button class="filter-btn" data-filter="tw">TWTW</button>
-    <button class="filter-btn" data-filter="community">Community</button>
-  </div>
-</div>
-
-<div class="essay-list-container">
-  <ul class="essay-list" id="essay-list">
-    {% assign essays = site.essays | sort: 'date' | reverse %}
-    {% for essay in essays %}
-    <li class="essay-item" data-category="{{ essay.categories | join: ' ' }}" data-title="{{ essay.title | downcase }}">
-      <h3><a href="{{ essay.url | relative_url }}">{{ essay.title }}</a></h3>
-      <div class="essay-meta">
-        <time datetime="{{ essay.date | date: '%Y-%m-%d' }}">{{ essay.date | date: "%B %d, %Y" }}</time>
-        {% if essay.read_time %}
-          <span>· {{ essay.read_time }} min read</span>
-        {% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Essays - Joel V Zachariah</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>JZ</text></svg>">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">Joel V Zachariah</a>
       </div>
-      {% if essay.subtitle %}
-        <p class="essay-subtitle">{{ essay.subtitle }}</p>
-      {% endif %}
-      {% if essay.excerpt %}
-        <p class="excerpt">{{ essay.excerpt | strip_html | truncate: 200 }}</p>
-      {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
-</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="essays.html" class="active">Essays</a></li>
+        <li><a href="resume.html">Resume</a></li>
+      </ul>
+    </div>
+  </nav>
 
-<div id="no-results" class="no-results" style="display: none;">
-  <p>No essays found matching your search.</p>
-</div>
+  <main>
+    <h1>Essays</h1>
+    <p class="text-muted" style="margin-bottom: 2rem;">A collection of thoughts on systems, data, technology, and life. Originally published on Medium (2018–2022).</p>
 
-<div class="ai-note">
-  <strong>Note:</strong> These essays were originally published on Medium between 2018–2022 and have been migrated to this personal archive.
-</div>
+    <div class="essay-filters">
+      <input type="text" id="essay-search" class="search-input" placeholder="Search essays...">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="opinion">Opinion</button>
+        <button class="filter-btn" data-filter="events">Events</button>
+        <button class="filter-btn" data-filter="student-life">Student Life</button>
+        <button class="filter-btn" data-filter="tw">TWTW</button>
+        <button class="filter-btn" data-filter="community">Community</button>
+      </div>
+    </div>
 
-<script>
-// Essay search and filter functionality
-document.addEventListener('DOMContentLoaded', function() {
-  const searchInput = document.getElementById('essay-search');
-  const essayList = document.getElementById('essay-list');
-  const essayItems = essayList.querySelectorAll('.essay-item');
-  const noResults = document.getElementById('no-results');
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  
-  let activeFilter = 'all';
-  
-  // Filter button clicks
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      filterButtons.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      activeFilter = this.dataset.filter;
+    <div class="essay-list-container">
+      <ul class="essay-list" id="essay-list">
+        <li class="essay-item" data-category="student-life" data-title="computer science engineering : dear freshman, from sophomore">
+          <h3><a href="essays/2018-06-04-computer-science-engineering-dear-freshman-from-sophomore.html">Computer Science Engineering : Dear Freshman, from Sophomore</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-06-04">June 04, 2018</time>
+            <span>· 18 min read</span>
+          </div>
+          <p class="essay-subtitle">This is an introspection over my 2nd year in Computer Science Engineering (CSE), where I make an attempt to find the ups and down in time…</p>
+          <p class="excerpt">An introspection over my 2nd year in Computer Science Engineering, providing insights for sophomores on subjects, study strategies, and academic growth.</p>
+        </li>
+        <li class="essay-item" data-category="events" data-title="under the coding hood: angelhack kochi hackathon 2018">
+          <h3><a href="essays/2018-09-02-under-the-coding-hood-angelhack-kochi-hackathon-2018.html">Under the coding hood: Angelhack Kochi Hackathon 2018</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-09-02">September 02, 2018</time>
+            <span>· 15 min read</span>
+          </div>
+          <p class="essay-subtitle">A hackathon experience documenting the journey from ideation to prototype development.</p>
+          <p class="excerpt">Documentation of my Angelhack Kochi 2018 experience, covering team formation, development process, and lessons learned during the 24-hour hackathon.</p>
+        </li>
+        <li class="essay-item" data-category="opinion" data-title="the 6 kinds of people in computer science and engineering">
+          <h3><a href="essays/2018-08-03-the-6-kinds-of-people-in-computer-science-and-engineering.html">The 6 kinds of people in Computer Science and Engineering</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-08-03">August 03, 2018</time>
+            <span>· 12 min read</span>
+          </div>
+          <p class="essay-subtitle">A humorous categorization of student archetypes in engineering programs.</p>
+          <p class="excerpt">A light-hearted look at the different types of students you'll encounter in a Computer Science Engineering program, from the coders to the procrastinators.</p>
+        </li>
+        <li class="essay-item" data-category="events" data-title="under the coding hood: hacktory 2018">
+          <h3><a href="essays/2018-07-12-under-the-coding-hood-hacktory-2018.html">Under the coding hood: Hacktory 2018</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-07-12">July 12, 2018</time>
+            <span>· 10 min read</span>
+          </div>
+          <p class="essay-subtitle">Another hackathon adventure with new challenges and learnings.</p>
+          <p class="excerpt">My experience at Hacktory 2018, exploring the collaborative environment and technical challenges of building a prototype in a weekend.</p>
+        </li>
+        <li class="essay-item" data-category="events" data-title="under the coding hood: angelhack bangalore hackathon 2018">
+          <h3><a href="essays/2018-07-12-under-the-coding-hood-angelhack-bangalore-hackathon-2018.html">Under the coding hood: Angelhack Bangalore Hackathon 2018</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-07-12">July 12, 2018</time>
+            <span>· 11 min read</span>
+          </div>
+          <p class="essay-subtitle">First major hackathon experience in Bangalore.</p>
+          <p class="excerpt">Documenting my first Angelhack experience in Bangalore, from registration to demo day, and the friendships formed along the way.</p>
+        </li>
+        <li class="essay-item" data-category="events" data-title="hackathon: transform hidden ideas into reality">
+          <h3><a href="essays/2018-07-22-hackathon-transform-hidden-ideas-into-reality.html">Hackathon: Transform Hidden Ideas into Reality</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-07-22">July 22, 2018</time>
+            <span>· 8 min read</span>
+          </div>
+          <p class="essay-subtitle">Reflections on the power of hackathons to bring ideas to life.</p>
+          <p class="excerpt">A reflection on how hackathons provide the perfect environment to transform abstract ideas into working prototypes through collaboration and focused effort.</p>
+        </li>
+        <li class="essay-item" data-category="opinion" data-title="the creative equivalent of work that we eagerly wait for">
+          <h3><a href="essays/2018-08-11-the-creative-equivalent-of-work-that-we-eagerly-wait-for.html">The creative equivalent of work that we eagerly wait for</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-08-11">August 11, 2018</time>
+            <span>· 9 min read</span>
+          </div>
+          <p class="essay-subtitle">Exploring the relationship between creative work and professional satisfaction.</p>
+          <p class="excerpt">An exploration of how creative projects outside of work can provide the fulfillment and satisfaction we seek in our professional lives.</p>
+        </li>
+        <li class="essay-item" data-category="opinion" data-title="mastering the art of letting it go">
+          <h3><a href="essays/2018-09-14-mastering-the-art-of-letting-it-go.html">Mastering the art of "letting it go"</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-09-14">September 14, 2018</time>
+            <span>· 7 min read</span>
+          </div>
+          <p class="essay-subtitle">Learning when to move on from projects, ideas, and expectations.</p>
+          <p class="excerpt">A personal reflection on the importance of knowing when to let go of projects and ideas that no longer serve us, and the freedom that comes with it.</p>
+        </li>
+        <li class="essay-item" data-category="tw" data-title="twtw: sept 23–29 of 2018 #2">
+          <h3><a href="essays/2018-09-29-twtw-sept-2329-of-2018-2.html">TWTW: Sept 23–29 of 2018 #2</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-09-29">September 29, 2018</time>
+            <span>· 3 min read</span>
+          </div>
+          <p class="essay-subtitle">Weekly reflections and discoveries.</p>
+          <p class="excerpt">This Week This Week: A weekly reflection post covering thoughts, readings, and experiences from the week of September 23-29, 2018.</p>
+        </li>
+        <li class="essay-item" data-category="tw" data-title="twtw: sept 16–22 of 2018 #1">
+          <h3><a href="essays/2018-09-23-twtw-sept-1622-of-2018-1.html">TWTW : Sept 16–22 of 2018 #1</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-09-23">September 23, 2018</time>
+            <span>· 5 min read</span>
+          </div>
+          <p class="essay-subtitle">Weekly reflections and discoveries.</p>
+          <p class="excerpt">This Week This Week: A weekly reflection post covering thoughts, readings, and experiences from the week of September 16-22, 2018.</p>
+        </li>
+        <li class="essay-item" data-category="events" data-title="pursuit of opportunity: venkat panchapakesan memorial scholarship">
+          <h3><a href="essays/2018-07-11-pursuit-of-opportunity-venkat-panchapakesan-memorial-scholar.html">Pursuit of Opportunity: Venkat Panchapakesan Memorial Scholarship</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-07-11">July 11, 2018</time>
+            <span>· 4 min read</span>
+          </div>
+          <p class="essay-subtitle">Scholarship experience and learnings.</p>
+          <p class="excerpt">My journey applying for and receiving the Venkat Panchapakesan Memorial Scholarship, and the opportunities it opened.</p>
+        </li>
+        <li class="essay-item" data-category="events" data-title="pursuit for opportunity: venkat panchapakesan memorial scholarship part 1">
+          <h3><a href="essays/2018-06-16-pursuit-for-opportunity-venkat-panchapakesan-memorial-schola.html">Pursuit for opportunity: Venkat Panchapakesan Memorial Scholarship (Part 1)</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-06-16">June 16, 2018</time>
+            <span>· 6 min read</span>
+          </div>
+          <p class="essay-subtitle">First part of the scholarship journey.</p>
+          <p class="excerpt">The beginning of my scholarship application journey, covering preparation, essays, and the initial stages of the selection process.</p>
+        </li>
+        <li class="essay-item" data-category="events" data-title="pursuit of opportunity: international conference 2018">
+          <h3><a href="essays/2018-07-21-pursuit-of-opportunity-international-conference-2018-by-busi.html">Pursuit Of Opportunity: International Conference, 2018</a></h3>
+          <div class="essay-meta">
+            <time datetime="2018-07-21">July 21, 2018</time>
+            <span>· 5 min read</span>
+          </div>
+          <p class="essay-subtitle">Conference experience and insights.</p>
+          <p class="excerpt">Attending an international conference and the valuable insights gained from industry leaders and networking opportunities.</p>
+        </li>
+        <li class="essay-item" data-category="student-life" data-title="how i converted my class group chat into an informative session">
+          <h3><a href="essays/2017-11-11-how-i-converted-my-class-group-chat-into-an-informative-sess.html">How I converted my class group chat into an informative session</a></h3>
+          <div class="essay-meta">
+            <time datetime="2017-11-11">November 11, 2017</time>
+            <span>· 3 min read</span>
+          </div>
+          <p class="essay-subtitle">Turning casual conversations into learning opportunities.</p>
+          <p class="excerpt">A story about transforming a typical class WhatsApp group into a platform for sharing knowledge and educational resources.</p>
+        </li>
+      </ul>
+    </div>
+
+    <div id="no-results" class="no-results" style="display: none;">
+      <p>No essays found matching your search.</p>
+    </div>
+
+    <div class="ai-note">
+      <strong>Note:</strong> These essays were originally published on Medium between 2018–2022 and have been migrated to this personal archive. More essays will be added soon.
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Joel V Zachariah</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+  // Essay search and filter functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('essay-search');
+    const essayList = document.getElementById('essay-list');
+    const essayItems = essayList.querySelectorAll('.essay-item');
+    const noResults = document.getElementById('no-results');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    let activeFilter = 'all';
+    
+    // Filter button clicks
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        activeFilter = this.dataset.filter;
+        filterEssays();
+      });
+    });
+    
+    // Search input
+    searchInput.addEventListener('input', function() {
       filterEssays();
     });
-  });
-  
-  // Search input
-  searchInput.addEventListener('input', function() {
-    filterEssays();
-  });
-  
-  function filterEssays() {
-    const searchTerm = searchInput.value.toLowerCase();
-    let visibleCount = 0;
     
-    essayItems.forEach(item => {
-      const title = item.dataset.title;
-      const category = item.dataset.category;
-      const matchesSearch = title.includes(searchTerm);
-      const matchesFilter = activeFilter === 'all' || category.includes(activeFilter);
+    function filterEssays() {
+      const searchTerm = searchInput.value.toLowerCase();
+      let visibleCount = 0;
       
-      if (matchesSearch && matchesFilter) {
-        item.style.display = 'block';
-        visibleCount++;
-      } else {
-        item.style.display = 'none';
-      }
-    });
-    
-    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-  }
-});
-</script>
+      essayItems.forEach(item => {
+        const title = item.dataset.title;
+        const category = item.dataset.category;
+        const matchesSearch = title.includes(searchTerm);
+        const matchesFilter = activeFilter === 'all' || category.includes(activeFilter);
+        
+        if (matchesSearch && matchesFilter) {
+          item.style.display = 'block';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      
+      noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  });
+  </script>
+</body>
+</html>
